@@ -10,11 +10,8 @@ const tsConfigPath = (exports.tsConfigPath = path.join(
 module.exports = {
   target: "web",
   entry: [
-    "core-js/shim",
-    "core-js/modules/es7.object.entries",
-    "core-js/modules/es7.object.values",
+    "core-js/stable",
     "regenerator-runtime/runtime",
-    "classlist-polyfill",
     "whatwg-fetch",
     "./src/index.ts"
   ],
@@ -23,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: {
           loader: "ts-loader",
           options: {
@@ -35,7 +32,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".tsx", ".js"],
     plugins: [],
     symlinks: false
   },
@@ -54,5 +51,8 @@ module.exports = {
         WALLETLINK_VERSION: JSON.stringify(require("./package.json").version)
       }
     })
-  ]
+  ],
+  node: {
+    fs: "empty"
+  }
 }
